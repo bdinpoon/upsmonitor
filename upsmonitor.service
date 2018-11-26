@@ -1,0 +1,11 @@
+[Unit]
+Description=UPS Power Monitor for use with CyberPower PowerPanel Personal
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/upsmonitor
+
+[Install]
+WantedBy=multi-user.target
+
