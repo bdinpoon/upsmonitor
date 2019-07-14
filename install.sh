@@ -6,7 +6,7 @@ mv upsmonitor /usr/bin/upsmonitor
 chmod +x /usr/bin/upsmonitor
 
 mv upsmonitor.service /etc/systemd/system/upsmonitor.service
-systemctl deamon-reload
+systemctl daemon-reload
 systemctl enable upsmonitor
 systemctl start upsmonitor
 
