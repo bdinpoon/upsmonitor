@@ -2,6 +2,9 @@
 #Install Script for upsmonitor service 
 #Written by BarryDinpoon
 
+#Download curl
+apt-get install -y curl
+
 mv upsmonitor /usr/bin/upsmonitor
 chmod +x /usr/bin/upsmonitor
 
