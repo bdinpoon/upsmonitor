@@ -4,7 +4,7 @@
 #Written by BarryDinpoon, modified by Nick-Vazquez
 # InfluxDB v2 API - Write: https://docs.influxdata.com/influxdb/v2/api/#operation/PostWrite
 
-#Input InfluxDB information her
+#Input InfluxDB information here
 DBHOST=<InfluxDBHost>
 DBPORT=<InfluxDBPort>
 ORGNAME=<OrganizationName>
