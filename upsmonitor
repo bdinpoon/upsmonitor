@@ -1,14 +1,15 @@
 #!/bin/bash
 #Script to write to InfluxDB for CyberPower UPS Satistics
 #This script requires the pwrstat utility to be installed and running on the system
-#Written by BarryDinpoon
+#Written by BarryDinpoon, modified by Nick-Vazquez
+# InfluxDB v2 API - Write: https://docs.influxdata.com/influxdb/v2/api/#operation/PostWrite
 
 #Input InfluxDB information here
-DBUSER=<InfluxDBUser>
-DBPASS=<InfluxDBPassword>
 DBHOST=<InfluxDBHost>
 DBPORT=<InfluxDBPort>
-DBNAME=<InfluxDBName>
+ORGNAME=<OrganizationName>
+BUCKET=<BucketName>
+APITOKEN=<APIToken>
 
 while true; do
 
@@ -40,7 +41,11 @@ else
 fi
 
 #Write out to InfluxDB
-/usr/bin/curl -s -i -XPOST -u $DBUSER:$DBPASS "http://$DBHOST:$DBPORT/write?db=$DBNAME" --data-binary  "power_status,host=$HOSTNAME success=0,load=$LOAD,runtime=$RUNTIME,utility_voltage=$UTILVOLT,output_voltage=$OUTVOLT,battery_capacity=$BATTCAP,power_supply=$SUPPLY,power_state=$STATE,ups_rating=$RATING,load_percentage=$LOADPERCENT" > /dev/null
+/usr/bin/curl -s -i -XPOST -u "http://$DBHOST:$DBPORT/api/v2/write?org=$ORGNAME&bucket=$BUCKET&precision=ns" \
+    --header "Authorization: Token $APITOKEN" \
+    --header "Content-Type: text/plain; charset=utf-8" \
+    --header "Accept: application/json" \
+    --data-binary  "power_status,host=$HOSTNAME success=0,load=$LOAD,runtime=$RUNTIME,utility_voltage=$UTILVOLT,output_voltage=$OUTVOLT,battery_capacity=$BATTCAP,power_supply=$SUPPLY,power_state=$STATE,ups_rating=$RATING,load_percentage=$LOADPERCENT" > /dev/null
 
 #Wait 2 seconds
 sleep 2s
