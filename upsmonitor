@@ -5,7 +5,9 @@
 # InfluxDB v2 API - Write: https://docs.influxdata.com/influxdb/v2/api/#operation/PostWrite
 
 #Input InfluxDB information here
+#Values enclosed in double quotes ""
 DBHOST=<InfluxDBHost>
+#DBHOST="https://influxdb.yourdomain.com"
 DBPORT=<InfluxDBPort>
 ORGNAME=<OrganizationName>
 BUCKET=<BucketName>
@@ -41,7 +43,7 @@ else
 fi
 
 #Write out to InfluxDB
-/usr/bin/curl -s -i -XPOST -u "http://$DBHOST:$DBPORT/api/v2/write?org=$ORGNAME&bucket=$BUCKET&precision=ns" \
+/usr/bin/curl -s -i -X POST "$DBHOST:$DBPORT/api/v2/write?org=$ORGNAME&bucket=$BUCKET&precision=ns" \
     --header "Authorization: Token $APITOKEN" \
     --header "Content-Type: text/plain; charset=utf-8" \
     --header "Accept: application/json" \
